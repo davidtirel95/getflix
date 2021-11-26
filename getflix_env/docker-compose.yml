@@ -46,6 +46,5 @@ services:
 networks:
   becode:
 
-    null
 volumes:
-  becode_data: null
+  becode_data:
