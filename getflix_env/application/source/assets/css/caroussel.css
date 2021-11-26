@@ -1,0 +1,120 @@
+body,
+h1,
+h2,
+h3,
+form,
+input,
+p,
+a,
+li {
+  font-family: "Rajdhani", sans-serif;
+}
+
+body {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.caroussel {
+  height: 250px;
+  width: 98%;
+  position: relative;
+}
+
+.caroussel .switchLeft,
+.caroussel .switchRight {
+  color: white;
+  font-family: "Manrope", sans-serif;
+  height: 100%;
+  width: 45px;
+  line-height: 250px;
+  font-size: 25px;
+  text-align: center;
+  background-color: rgba(33, 37, 41, 0.5);
+  top: 0;
+  z-index: 5;
+}
+
+.caroussel .switchLeft p,
+.caroussel .switchRight p {
+  line-height: 250px;
+  font-family: "Manrope", sans-serif;
+  font-size: 25px;
+  text-align: center;
+  color: white;
+}
+
+.caroussel .switchLeft {
+  position: absolute;
+  left: 0px;
+}
+
+.caroussel .switchRight {
+  position: absolute;
+  right: 0px;
+}
+
+.caroussel .carousselbox {
+  height: 250px;
+  width: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  padding-bottom: 10px !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.caroussel .carousselbox img {
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  margin: 5px 5px;
+  cursor: pointer;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+#films_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#films_container img {
+  padding: 0 5px 10px 5px;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+/*# sourceMappingURL=caroussel.css.map */
