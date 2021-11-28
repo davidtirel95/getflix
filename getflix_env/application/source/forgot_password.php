@@ -22,11 +22,17 @@ if (!empty($_POST)) {
             if ($user) {
                 $password = uniqid();
                 $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);
-
+                $subject = 'Forgot password';
                 $message = "hello, here is your new password : $password";
-                $headers = 'Content=Type: text/plain; charset="utf-8"' . ' ';
+                $headers = [
+                    'FROM' => 'no-reply@site.be',
+                    'Reply-To' => 'replyto@example.com',
+                    'Cc' => 'copie@site.be',
+                    'Bcc' => 'copiecache@site.be',
+                    'Content-Type' => 'text/html; charset=utf-8',
+                ];
 
-                if (mail($email, 'Forgot password', $message, $headers)) {
+                if (mail($email, $subject, $message, $headers)) {
                     $sql = 'UPDATE register SET password = ? WHERE email = ?';
                     $stmt = $conn->prepare($sql);
                     $stmt->execute([$hashedPassword, $email]);
@@ -68,14 +74,14 @@ if (!empty($_POST)) {
                 <h6 class="text-left">Enter your email</h6>
                 <!-- message d'erreur -->
                 <?php
-    if (isset($_SESSION['error'])) {
-        foreach ($_SESSION['error'] as $message) { ?>
+                if (isset($_SESSION['error'])) {
+                    foreach ($_SESSION['error'] as $message) { ?>
                 <p><?php echo $message; ?></p>
                 <?php }
-        unset($_SESSION['error']);
-    }
-    echo $msg;
-    ?>
+                    unset($_SESSION['error']);
+                }
+                echo $msg;
+                ?>
                 <form method="post" action="" id="form">
                     <div class="mb-3">
                         <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1"
