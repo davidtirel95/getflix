@@ -92,6 +92,21 @@ body {
   z-index: 2;
 }
 
+.caroussel .carousselbox img:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  z-index: 4;
+}
+
+#caroussel_title {
+  width: 98%;
+  padding-top: 20px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  text-align: left;
+  font-weight: 500;
+}
+
 #films_container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -101,9 +116,9 @@ body {
           justify-content: center;
   -ms-flex-line-pack: center;
       align-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -116,5 +131,12 @@ body {
   padding: 0 5px 10px 5px;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
+  z-index: 1;
+}
+
+#films_container img:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  z-index: 3;
 }
 /*# sourceMappingURL=caroussel.css.map */
