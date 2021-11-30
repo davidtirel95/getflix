@@ -1,5 +1,5 @@
 <?php
-// On connecte l'usager, cela doit se faite en début du code de préférence
+// On connecte l'usager, cela doit se faite en début du code de préférences
 session_start();
 if (isset($_SESSION['user'])) {
     header('Location: ./profil.php');
