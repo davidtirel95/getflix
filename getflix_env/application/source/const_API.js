@@ -5,8 +5,6 @@ const IMG_URL = "https://image.tmdb.org/t/p/w200/";
 const the_main = document.getElementById("main");
 const GENRES = "https://api.themoviedb.org/3/genre/movie/list?"+API_KEY+"&language=en-US";
 const HORROR_THRILLER = "https://api.themoviedb.org/3/discover/movie?" + API_KEY + "&with_genres=27,53";
-const HORROR_ANIMATION = "https://api.themoviedb.org/3/discover/movie?" + API_KEY + "&with_genres=27,16";
-const HORROR_DOCUMENTARY = "https://api.themoviedb.org/3/discover/movie?" + API_KEY + "&with_genres=27,99";
 const DATE_60 = "&primary_release_date.gte=1960&primary_release_date.lte=169";
 const HORROR_SIXTIES = "https://api.themoviedb.org/3/discover/movie?" + API_KEY + "&with_genres=27" + DATE_60;
 

@@ -20,7 +20,7 @@
 
     <!-- My styles -->
     <link rel="stylesheet" href="./assets/css/caroussel.css">
-    <title>Banner</title>
+    <title>Main page Room 237</title>
     <!-- Font Rajdhani -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,7 +65,7 @@
     </div>
 
     <!-- Caroussel -->
-    <p class="text-start text-uppercase fs-5">Latest horror movies</p>
+    <p id="caroussel_title" class="text-start text-uppercase fs-4">Latest horror movies</p>
     <div class="caroussel">
         <div class="carousselbox">
             <!-- Random data will come here -->
@@ -80,17 +80,28 @@
     </div>
 
     <!-- Tous les films -->
-    <div class="container_banner" id="container_banner">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mx-auto justify-content-center" id="films_container_container">
-                <div id="films_container">
-                    <!-- On injecte ici tous les films (img) -->
+    <div id="films" class="justify-content-center">
+        <!-- Les filtres possibles -->
+        <div id="films_filters" class="justify-content-center mb-3 mT-1 text-center">
+            <button id="old_movies" type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1 rounded-pill" data-bs-toggle="button">60s & 70s</button>
+            <button id="documentary" type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1 rounded-pill" data-bs-toggle="button">Documentary</button>
+            <button id="thriller" type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1 rounded-pill" data-bs-toggle="button">Thriller</button>
+            <button id="drama" type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1 rounded-pill" data-bs-toggle="button">Drama</button>
+            <button id="fantasy" type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1 rounded-pill" data-bs-toggle="button">Fantasy</button>
+            <button id="science_fiction" type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1 rounded-pill" data-bs-toggle="button">Science fiction</button>
+            <button id="mistery" type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1 rounded-pill" data-bs-toggle="button">Mystery</button>
+        </div>
+        <!-- Les visuels des films -->
+        <div class="container_banner" id="container_banner">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mx-auto justify-content-center" id="films_container_container">
+                    <div id="films_container">
+                        <!-- On injecte ici tous les films (img) -->
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-
 
 
 
