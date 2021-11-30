@@ -1,0 +1,23 @@
+table{
+    border: 1px solid rgb(194, 191, 191);
+    border-collapse: collapse;
+    table-layout: auto;
+    width:100%;
+}
+
+table th{
+    border: 1px solid rgb(194, 191, 191);
+}
+
+table td {
+    border: 1px solid rgb(194, 191, 191);
+    padding: 5px 5px 5px 5px;
+}
+
+table td.shrink {
+    white-space:nowrap
+}
+table td.expand {
+    width: 99%
+}
+

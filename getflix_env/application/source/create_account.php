@@ -1,7 +1,10 @@
 <?php
 // On connecte l'usager, cela doit se faite en début du code de préférence
 session_start();
-
+if (isset($_SESSION['user'])) {
+    header('Location: ./profil.php');
+    exit();
+}
 // Placer la partie logique autant que possible séparée de l'html
 $first_name = '';
 $last_name = '';

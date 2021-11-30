@@ -1,8 +1,14 @@
 <?php
+session_start();
+if (isset($_SESSION['user'])) {
+    header('Location: ./profil.php');
+    exit();
+}
+use PHPMailer\PHPMailer\PHPMailer;
 $msg = '';
 if (!empty($_POST)) {
     if (isset($_POST['email']) and !empty($_POST['email'])) {
-        // messaga à l'utilisateur
+        // message à l'utilisateur
         $_SESSION['error'] = [];
         //  le formulaire est complété
         // On vérifie que le mail a le bon format
@@ -20,24 +26,46 @@ if (!empty($_POST)) {
             $user = $query->fetch();
 
             if ($user) {
+                // généré un nouveau mot de passe 13charactères unique
                 $password = uniqid();
                 $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);
+
+                // phpmailer
                 $subject = 'Forgot password';
                 $message = "hello, here is your new password : $password";
-                $headers = [
-                    'FROM' => 'no-reply@site.be',
-                    'Reply-To' => 'replyto@example.com',
-                    'Cc' => 'copie@site.be',
-                    'Bcc' => 'copiecache@site.be',
-                    'Content-Type' => 'text/html; charset=utf-8',
-                ];
 
-                if (mail($email, $subject, $message, $headers)) {
+                require_once './PHPMailer/PHPMailer.php';
+                require_once './PHPMailer/SMTP.php';
+                require_once './PHPMailer/Exception.php';
+
+                $mail = new PHPMailer();
+
+                // smtp settings
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = '	room237.getflix@gmail.com';
+                $mail->Password = 'Getflixproject';
+                $mail->Port = 465;
+                $mail->SMTPSecure = 'ssl';
+
+                // email settings
+                $mail->isHTML(true);
+                $mail->setFrom($email);
+                $mail->addAddress("$email");
+                $mail->Subject = "$email ($subject)";
+                $mail->Body = $message;
+
+                // changé le mot de passe dans la base de donnée si email envoyé
+                if ($mail->send()) {
                     $sql = 'UPDATE register SET password = ? WHERE email = ?';
                     $stmt = $conn->prepare($sql);
                     $stmt->execute([$hashedPassword, $email]);
                     $msg =
-                        "<p style='color:green'>Your Password succesfully changed</p>";
+                        "<p style='color:green'>Check your mail for your new password </p>";
+                } else {
+                    $message =
+                        "<p style='color:red'>Error, email not send.</p>";
                 }
             }
         }
@@ -47,7 +75,27 @@ if (!empty($_POST)) {
         ];
     }
 }
+
+//  // php mail
+//  $subject = 'Forgot password';
+//  $message = "hello, here is your new password : $password";
+//  $headers = [
+//      'FROM' => 'no-reply@site.be',
+//      'Reply-To' => 'replyto@example.com',
+//      'Cc' => 'copie@site.be',
+//      'Bcc' => 'copiecache@site.be',
+//      'Content-Type' => 'text/html; charset=utf-8',
+//  ];
+
+//  if (mail($email, $subject, $message, $headers)) {
+//      $sql = 'UPDATE register SET password = ? WHERE email = ?';
+//      $stmt = $conn->prepare($sql);
+//      $stmt->execute([$hashedPassword, $email]);
+//      $msg =
+//          "<p style='color:green'>Your Password succesfully changed</p>";
+//  }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
