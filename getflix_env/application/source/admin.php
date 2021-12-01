@@ -10,6 +10,19 @@ if ($_SESSION['user']['user_type'] === 'user') {
     header('Location: ./profil.php');
     exit();
 }
+
+include_once './connect.php';
+$allusers = $conn->query('SELECT * FROM register ORDER BY id DESC');
+if (isset($_GET['search']) and !empty($_GET['search'])) {
+    $recherche = htmlspecialchars($_GET['search']);
+    $allusers = $conn->query(
+        "SELECT last_name FROM register WHERE last_name LIKE '%" .
+            $recherche .
+            "%' ORDER BY id DESC"
+    );
+} else {
+    echo '';
+}
 ?>
 
 
@@ -36,6 +49,11 @@ if ($_SESSION['user']['user_type'] === 'user') {
     <div class="container" id="sign_in">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4 mx-auto justify-content-center">
+                <form action="" method="get">
+                    <input type="search" name="search" placeholder="search user">
+                    <button type="submit" type="submit">search</button>
+                </form>
+                <br>
                 <?php
                 include_once './connect.php';
 
@@ -76,6 +94,19 @@ if ($_SESSION['user']['user_type'] === 'user') {
                 echo '</table>';
                 ?>
 
+                <div>
+                    <?php if ($allusers->rowCount() > 0) {
+                        while ($user = $allusers->fetch()) { ?>
+                    <p><?php echo $user['last_name']; ?></p>
+                    <?php }
+                    } else {
+                         ?>
+                    <p>Aucun user trouvé</p>
+                    <?php
+                    } ?>
+
+
+                </div>
 
 
 

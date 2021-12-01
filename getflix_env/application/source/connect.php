@@ -1,14 +1,14 @@
 <?php
 
 // la connexion à la base de données
-//$servername = "database";
-$username = "root";
-//$pass = "root";
-$dbname = "getflix";
+$servername = 'database';
+$username = 'root';
+$pass = 'root';
+$dbname = 'getflix';
 
 // Connexion WAMP:
-$servername = "localhost";
-$pass = "";
+// $servername = "localhost";
+// $pass = '';
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $pass);
