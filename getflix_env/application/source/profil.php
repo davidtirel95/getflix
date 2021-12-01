@@ -131,11 +131,13 @@ if (
 <?php include_once './head.php'; ?>
 
 <body class="bg-dark text-white">
-    <?php include_once './header.php'; ?>
+
     <!-- Titre et logo -->
     <div class="container" id="logo_et_titre">
+        <?php include_once './header.php'; ?>
         <div class="row mb-4 mt-4">
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center">
+
                 <div class="text-center" id="logo_container">
                     <img src="./img/netflix_petit.png" alt="logo" id="logo">
                 </div>

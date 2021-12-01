@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item px-4 mt-4">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
                 </li>
                 <li class="nav-item px-4 mt-4">
                     <a class="nav-link" href="./profil.php">
@@ -18,11 +18,11 @@
                 </li>
                 <?php if (!isset($_SESSION['user'])): ?>
                 <li class="nav-item px-4 mt-4">
-                    <a class="nav-link" href="./create_account.php">Create account</a>
+                    <a class="nav-link" href="./create_account.php">Register</a>
                 </li>
                 <li class="nav-item px-4 mt-4">
-                    <button class="btn btn-rounded btn-dark"><a class="nav-link"
-                            href="./register.php">Register</a></button>
+                    <button class="btn btn-rounded btn-dark"><a class="nav-link" href="./register.php">Log
+                            in</a></button>
                 </li>
                 <?php else: ?>
                 <li class="nav-item px-4 mt-4">
