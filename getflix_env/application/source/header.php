@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/header.css">
-</head>
-<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-black">
     <div class="container-fluid">
         <a class="navbar-brand px-4" href="#">
@@ -26,18 +16,25 @@
                         My profile
                     </a>
                 </li>
+                <?php if (!isset($_SESSION['user'])): ?>
                 <li class="nav-item px-4 mt-4">
                     <a class="nav-link" href="./create_account.php">Create account</a>
                 </li>
                 <li class="nav-item px-4 mt-4">
-                <button class="btn btn-rounded btn-dark"><a class="nav-link" href="./register.php">Register</a></button>
+                    <button class="btn btn-rounded btn-dark"><a class="nav-link"
+                            href="./register.php">Register</a></button>
                 </li>
+                <?php else: ?>
                 <li class="nav-item px-4 mt-4">
-                    <button class="btn btn-rounded btn-danger"><a class="nav-link" href="./deconnect.php">Deconnect</a></button>
+                    <button class="btn btn-rounded btn-danger"><a class="nav-link"
+                            href="./deconnect.php">Deconnect</a></button>
                 </li>
+                <?php endif; ?>
+                <?php if ($_SESSION['user']['user_type'] === 'admin'): ?>
                 <li class="nav-item px-4 mt-4">
                     <a class="nav-link" href="./admin.php">Admin</a>
                 </li>
+                <?php endif; ?>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -46,7 +43,3 @@
         </div>
     </div>
 </nav>
-    
-</body>
-</html>
-

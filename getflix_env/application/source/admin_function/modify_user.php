@@ -156,72 +156,45 @@ if (!empty($_POST)) {
 
 <body class="bg-dark text-white">
     <header>
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid px-5">
-                <a class="navbar-brand" href="#">
-                    <h1>GetFlix</h1>
-                </a><img src="../img/EyeHorror.png" alt="..." height="80">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+            <div class="container-fluid">
+                <a class="navbar-brand px-4" href="#">
+                    <img src="../img/logo_room237.svg"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded=" false"
+                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav px-5">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Home</a>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item px-4 mt-4">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
-
-                        <li class="nav-item dropdown px-5">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Genres
+                        <li class="nav-item px-4 mt-4">
+                            <a class="nav-link" href="../admin_function/profil.php">
+                                My profile
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Animated movies</a></li>
-                                <li><a class="dropdown-item" href="#">Cannibal</a></li>
-                                <li><a class="dropdown-item" href="#">Comedy</a></li>
-                                <li><a class="dropdown-item" href="#">Gore</a></li>
-                                <li><a class="dropdown-item" href="#">Killer</a></li>
-                                <li><a class="dropdown-item" href="#">Monster movies</a></li>
-                                <li><a class="dropdown-item" href="#">Paranormal</a></li>
-                                <li><a class="dropdown-item" href="#">Psychological</a></li>
-                                <li><a class="dropdown-item" href="#">Slasher</a></li>
-                                <li><a class="dropdown-item" href="#">Zombies</a></li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li><a class="dropdown-item" href="#">More genres</a></li>
-                            </ul>
                         </li>
-
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="../profil.php">My profile</a>
+                        <li class="nav-item px-4 mt-4">
+                            <a class="nav-link" href="../admin_function/create_account.php">Create account</a>
                         </li>
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="../create_account.php">Create account</a>
+                        <li class="nav-item px-4 mt-4">
+                            <button class="btn btn-rounded btn-dark"><a class="nav-link"
+                                    href="./admin_function/register.php">Register</a></button>
                         </li>
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="../register.php">Connect</a>
+                        <li class="nav-item px-4 mt-4">
+                            <button class="btn btn-rounded btn-danger"><a class="nav-link"
+                                    href="../admin_function/deconnect.php">Deconnect</a></button>
                         </li>
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="../deconnect.php">Deconnect</a>
+                        <li class="nav-item px-4 mt-4">
+                            <a class="nav-link" href="../admin_function/admin.php">Admin</a>
                         </li>
-
-
                     </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-danger" type="submit">Search</button>
+                    </form>
                 </div>
-
-
-                <form action="" class="">
-                    <div class="input-group my-4">
-                        <input type="text" class="form-control form-control-lg" placeholder="let's scream...">
-                        <button type="submit" class="input-group-text btn-danger"><i class="bi bi-search me-2"></i>
-                            Search</button>
-                    </div>
-                </form>
-
             </div>
         </nav>
     </header>

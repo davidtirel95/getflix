@@ -17,7 +17,7 @@
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/8e9298d105.js" crossorigin="anonymous"></script>
     <!-- styles -->
-    <link rel="stylesheet" href="./assets/css/headerfooter.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/styles.css">
     <link rel="stylesheet" href="./assets/css/admin.css">
 
