@@ -203,3 +203,25 @@ function showMovies(data) {
     })
 }
 
+
+// Movie page element holders //////////////////////////////////////////////////////////
+
+// Ici il faudra adapter sa src et son alt qui sera le titre du film
+var poster = document.getElementById("poster");
+
+// Ici il faudra adapter la src de la video  Youtube et le title avec le titre du film
+var trailer = document.getElementById("trailer");
+
+// Titre du film: adapter le innerHTML
+var title = document.getElementById("title");
+
+// Synopsis: adapter le innerHTML
+var synopsis = document.getElementById("synopsis");
+
+// Synopsis: adapter le innerHTML
+var synopsis = document.getElementById("synopsis");
+
+// Movie page variables //////////////////////////////////////////////////////////////////////
+// poster path
+
+

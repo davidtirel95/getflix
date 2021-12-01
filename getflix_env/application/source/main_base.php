@@ -1,3 +1,36 @@
+<?php
+$key = "api_key=4080ddd8f97d6721f32f9d82aba61857";
+$genres = "&with_genres=27";
+
+$curl = curl_init("https://api.themoviedb.org/3/discover/movie?" . $key . $genres);
+// ici il s'agit de donner le certificat mais ça ne marche pas!!
+//curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . DIRECTORY_SEPARATOR . 'cert.cer');
+// du coup, déconseillé:
+curl_setopt_array($curl, [
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 1
+]);
+$data = curl_exec($curl);
+if ($data === false) {
+    var_dump(curl_error($curl));
+} else {
+    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
+        $data = json_decode($data, true);
+        // echo "<pre>";
+        // var_dump($data);
+        // echo "</pre>";
+    } else {
+        echo "Erreur";
+    }
+}
+curl_close($curl);
+
+$posters = $data["results"];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,46 +108,27 @@
     <!-- Tous les films -->
     <div id="films" class="justify-content-center">
         <!-- Les filtres possibles -->
-        <div id="films_filters" class="d-flex flex-row justify-content-center mb-3 mT-1 text-center">
-            <form action="" method="get">
-                <button id="all" name="all" value="all" type="submit" class="btn btn-outline-danger btn-sm m-1 rounded-pill">All</button>
-            </form>
-            <form action="" method="get">
-                <button id="documentary" name="documentary" value="documentary" type="submit" class="btn btn-outline-danger btn-sm m-1 rounded-pill">Documentary</button>
-            </form>
-            <form action="" method="get">
-                <button id="thriller" name="thriller" value="thriller" type="submit" class="btn btn-outline-danger btn-sm m-1 rounded-pill">Thriller</button>
-            </form>
-            <form action="" method="get">
-                <button id="classics" name="classics" value="classics" type="submit" class="btn btn-outline-danger btn-sm m-1 rounded-pill">Classics</button>
+        <div id="films_filters" class="justify-content-center mb-3 mT-1 text-center">
+            <form action="" method="GET">
+                <button id="documentary" type="submit" class="btn btn-outline-danger btn-sm mt-1 mb-1 rounded-pill" data-bs-toggle="button">Documentary</button>
             </form>
         </div>
-
         <!-- Les visuels des films -->
-        <?php
-
-        if (!isset($_GET["all"]) and !isset($_GET["documentary"]) and !isset($_GET["thriller"]) and !isset($_GET["classics"])) {
-            include("./horror_all.php");
-        }
-
-        if (isset($_GET["all"])) {
-            include("./horror_all.php");
-        }
-        if (isset($_GET["documentary"])) {
-            include("./documentary.php");
-        }
-        if (isset($_GET["thriller"])) {
-            include("./thriller.php");
-        }
-        if (isset($_GET["classics"])) {
-            include("./old_movies.php");
-        }
-
-        ?>
-
-
-
-
+        <div class="container_banner" id="container_banner">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mx-auto justify-content-center" id="films_container_container">
+                    <div id="films_container">
+                        <!-- On injecte ici tous les films (img) -->
+                        <?php foreach ($posters as $poster) { ?>
+                            <form action="" method="GET" class="form_movie" name="movie" value="<?= $poster['id'] ?>">
+                                <a class="lien" style="max-width: 185px;" href="./movie_page.php?id=<?= $poster['id'] ?>">
+                                    <img style="max-width: 154px;" id=" <?= $poster['id'] ?>" src="<?= "https://image.tmdb.org/t/p/w154/" . $poster['poster_path'] ?>" class="img_poster" alt="<?= $poster['title'] ?>">
+                                </a>
+                            </form> <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -126,8 +140,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.js" integrity="sha512-RT3IJsuoHZ2waemM8ccCUlPNdUuOn8dJCH46N3H2uZoY7swMn1Yn7s56SsE2UBMpjpndeZ91hm87TP1oU6ANjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--  Mes js -->
     <script src="./const_API.js"></script>
-    <script src="./caroussel_last.js"></script>
-
+    <script src="./caroussel.js"></script>
+    <!-- <script src="./tous_les_films.js"></script> -->
 </body>
 
 </html>

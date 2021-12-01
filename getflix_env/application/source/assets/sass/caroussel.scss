@@ -107,22 +107,33 @@ body {
   font-weight: 500;
 }
 
+// All movies  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 #films_container {
   display: flex;
   justify-content: center;
-  align-content: center;
-  align-items: stretch;
   flex-direction: row;
   flex-wrap: wrap;
-  //justify-self: center !important;
-
-  img {
-    padding: 0 5px 10px 5px;
-    transition: 0.5s ease;
-    z-index: 1;
-  }
-  img:hover {
-    transform: scale(1.1);
-    z-index: 3;
+  form {
+    display: flex;
+    justify-content: center;
+    .lien {
+      //height: 100%;
+      display: flex;
+      justify-content: center;
+      // align-items: stretch;
+      // align-content: stretch;
+      //align-self: stretch;
+      .img_poster {
+        height: 100%;
+        padding: 0 5px 10px 5px;
+        transition: 0.5s ease;
+        z-index: 2;
+      }
+      .img_poster:hover {
+        transform: scale(1.1);
+        z-index: 3;
+      }
+    }
   }
 }

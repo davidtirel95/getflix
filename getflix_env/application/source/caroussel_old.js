@@ -47,9 +47,3 @@ async function showMovieData() {
     scrollPerClick = 400;
     
 }
-
-
-
-
-
-
