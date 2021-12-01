@@ -1,6 +1,69 @@
 <?php
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+} else {
+    echo "There is a problem loading the content.";
+}
 
-// Ici ira le php 
+// https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
+
+$key = "api_key=4080ddd8f97d6721f32f9d82aba61857";
+$curl = curl_init("https://api.themoviedb.org/3/movie/" . $id . "?" . $key . "&language=en-US");
+// ici il s'agit de donner le certificat mais ça ne marche pas!!
+//curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . DIRECTORY_SEPARATOR . 'cert.cer');
+// du coup, déconseillé:
+curl_setopt_array($curl, [
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 1
+]);
+$data = curl_exec($curl);
+if ($data === false) {
+    var_dump(curl_error($curl));
+} else {
+    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
+        $data = json_decode($data, true);
+        // echo "<pre>";
+        // var_dump($data);
+        // echo "</pre>";
+    } else {
+        echo "Erreur";
+    }
+}
+curl_close($curl);
+
+$infos = $data;
+
+// Trouver les youtube à partir des id
+$youtube_link = "https://www.youtube.com/embed/";
+$curl2 = curl_init("http://api.themoviedb.org/3/movie/" . $id . "/videos?" . $key);
+// ici il s'agit de donner le certificat mais ça ne marche pas!!
+//curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . DIRECTORY_SEPARATOR . 'cert.cer');
+// du coup, déconseillé:
+curl_setopt_array($curl2, [
+    CURLOPT_SSL_VERIFYPEER => false,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 1
+]);
+$data2 = curl_exec($curl2);
+if ($data2 === false) {
+    var_dump(curl_error($curl2));
+} else {
+    if (curl_getinfo($curl2, CURLINFO_HTTP_CODE) === 200) {
+        $data2 = json_decode($data2, true);
+        // echo "<pre>";
+        // var_dump($data2['results'][0]['key']);
+        // echo "</pre>";
+    } else {
+        echo "Erreur";
+    }
+}
+curl_close($curl2);
+
+$video = $data2["results"];
+//echo $video;
+$video = $youtube_link . $video[0]["key"];
+//echo $video;
 
 ?>
 
@@ -38,10 +101,10 @@
     <div class="container">
         <div class="row" id="movie_details">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mx-auto justify-content-center mt-5 mb-3">
-                <img src="https://image.tmdb.org/t/p/w300/5iGVofFc0mCr8aJYsVICm42ThIu.jpg" alt="movie_title" class="w-100 mb-4">
+                <img id="poster" src="https://image.tmdb.org/t/p/w300/<?= $infos['poster_path'] ?>" alt="movie_title" class="w-100 mb-4">
                 <p><strong class="fs-6 fw-bold text-danger mt-4 mb-4">Trailer:</strong></p>
                 <div>
-                    <iframe width="560" height="315" class="w-100 h-100" id="video1" src="https://www.youtube.com/embed/AujRGaPAP7Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="560" height="315" class="w-100 h-100" id="trailer" src="<?= $video ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </iframe>
                 </div>
 
@@ -51,34 +114,31 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5 mb-3">
-                <h2 id="title" class="text-start">Last Night in Soho
-
+                <h2 id="title" class="text-start"><?= $infos['title'] ?>
                 </h2>
                 <div class="synopsis mt-4 mb-4 pt-4 pb-4 border-top border-danger">
                     <h4>Synopsis</h4>
-                    <p>A young girl, passionate about fashion design, is mysteriously able to enter the 1960s where she encounters her idol, a dazzling wannabe singer. But 1960s London is not what it seems, and time seems to be falling apart with shady consequences.</p>
+                    <p id="synopsis"><?= $infos['overview'] ?></p>
                 </div>
-                <div class="genres_badges d-flex flex-row align-items-start">
+                <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
                     <p class="fs-6 fw-bold text-danger">Genres: </p>
                     <span class="mx-2 badge bg-light text-dark">Horror</span>
                 </div>
-                <p><strong class="fs-6 fw-bold text-danger">Language:</strong> EN</p>
-                <p><strong class="fs-6 fw-bold text-danger">Year:</strong> 2021</p>
-                <p><strong class="fs-6 fw-bold text-danger">Vote average:</strong> 6.4</p>
-                <p><strong class="fs-6 fw-bold text-danger">Cast:</strong> Lorem acteurs</p>
-                <p><strong class="fs-6 fw-bold text-danger">Director:</strong> Lorem directeurs</p>
-                <p><strong class="fs-6 fw-bold text-danger">Duration:</strong> 2h07</p>
+                <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos['release_date'] ?></p>
+                <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos['vote_average'] ?></p>
+                <!-- <p><strong class="fs-6 fw-bold text-danger">Cast:</strong> Lorem acteurs</p>
+                <p><strong class="fs-6 fw-bold text-danger">Director:</strong> Lorem directeurs</p> -->
+                <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos['runtime'] . " minutes" ?></p>
 
             </div>
         </div>
     </div>
 
-
-
     <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
     <!--  Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <!--  Mes js -->
+    <!-- <script src="./tous_les_films.js"></script> -->
 </body>
 
 </html>
