@@ -155,49 +155,7 @@ if (!empty($_POST)) {
 </head>
 
 <body class="bg-dark text-white">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-            <div class="container-fluid">
-                <a class="navbar-brand px-4" href="#">
-                    <img src="../img/logo_room237.svg"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item px-4 mt-4">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item px-4 mt-4">
-                            <a class="nav-link" href="../admin_function/profil.php">
-                                My profile
-                            </a>
-                        </li>
-                        <li class="nav-item px-4 mt-4">
-                            <a class="nav-link" href="../admin_function/create_account.php">Create account</a>
-                        </li>
-                        <li class="nav-item px-4 mt-4">
-                            <button class="btn btn-rounded btn-dark"><a class="nav-link"
-                                    href="./admin_function/register.php">Register</a></button>
-                        </li>
-                        <li class="nav-item px-4 mt-4">
-                            <button class="btn btn-rounded btn-danger"><a class="nav-link"
-                                    href="../admin_function/deconnect.php">Deconnect</a></button>
-                        </li>
-                        <li class="nav-item px-4 mt-4">
-                            <a class="nav-link" href="../admin_function/admin.php">Admin</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-danger" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header>
+
     <!-- Titre et logo -->
     <div class="container" id="logo_et_titre">
         <div class="row mb-4 mt-4">
