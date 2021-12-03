@@ -11,6 +11,7 @@
                 <li class="nav-item mx-4 my-auto">
                     <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
                 </li>
+<<<<<<< HEAD
                 <?php if (isset($_SESSION['user'])) { ?>
                 <li class="nav-item mx-4 my-auto">
                     <a class="nav-link" href="./profil.php">
@@ -36,6 +37,31 @@
                 <li class="nav-item mx-4 my-auto">
                     <a class="nav-link" href="./admin.php">Admin</a>
                 </li>
+=======
+                <?php if (isset($_SESSION['user'])) : ?>
+                    <li class="nav-item mx-4 my-auto">
+                        <a class="nav-link" href="./profil.php">
+                            <img src="./img/person.svg" alt="user"> My profile
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <?php if (!isset($_SESSION['user'])) : ?>
+                    <li class="nav-item mx-4 my-auto">
+                        <a class="nav-link" href="./create_account.php">Subscribe</a>
+                    </li>
+                    <li class="nav-item mx-4 my-auto">
+                        <button class="m-1 btn btn-danger px-3"><a class="nav-link  m-0 p-0" href="./register.php">Login</a></button>
+                    </li>
+                <?php else : ?>
+                    <li class="nav-item mx-4 my-auto">
+                        <button class="m-1 btn btn-dark boder border-1 border-danger px-3" type="submit"><a class="nav-link m-0 p-0" href="./deconnect.php">Logout</a></button>
+                    </li>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['user']['user_type']) == 'admin') { ?>
+                    <li class="nav-item mx-4 my-auto">
+                        <a class="nav-link" href="./admin.php">Admin</a>
+                    </li>
+>>>>>>> ed33f128b935e5439ae78b800b0fe5d9236a6a2b
                 <?php } ?>
             </ul>
             <form action="./main.php" method="get" class="d-flex mx-4">
