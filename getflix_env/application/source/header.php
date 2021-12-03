@@ -10,12 +10,13 @@
                 <li class="nav-item mx-4 my-auto">
                     <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
                 </li>
-                <?php if (isset($_SESSION['user'])): ?>
+                <?php if (isset($_SESSION['user'])) : ?>
                     <li class="nav-item mx-4 my-auto">
-                    <a class="nav-link" href="./profil.php">
-                        <img src="./img/person.svg" alt="user"> My profile
-                    </a>
-                </li>
+                        <a class="nav-link" href="./profil.php">
+                            <img src="./img/person.svg" alt="user"> My profile
+                        </a>
+                    </li>
+                <?php endif; ?>
                 <?php if (!isset($_SESSION['user'])) : ?>
                     <li class="nav-item mx-4 my-auto">
                         <a class="nav-link" href="./create_account.php">Subscribe</a>
