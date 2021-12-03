@@ -123,21 +123,7 @@ if (!empty($_POST)) {
         </div>
     </div>
 
-    <!-- Mot de passe oublié -->
-    <!-- S'inscrire -->
-    <div class="container mt-4" id="create_account">
-        <div class="row">
-            <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4 mx-auto justify-content-center">
-                <div class="border-bottom border-danger border-bottom-2 pb-4">
-                    <a href="./forgot_password.php" class="text-light">Mot de passe oublié?</a>
-                </div>
-                <div class="pt-4">
-                    <a href="./create_account.php" class="text-light link-light">Not a member?<strong
-                            class="text-danger"> Sign up now</strong> </a>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <?php include_once './footer.php'; ?>
     <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
     <!--  Popper and Bootstrap JS jquery -->
