@@ -122,42 +122,20 @@ if (!empty($_POST)) {
     <div class="container">
         <div class="row" id="movie_details">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mx-auto justify-content-center mt-5 mb-3">
-                <img id="poster" src="https://image.tmdb.org/t/p/w300/<?= $infos[
-                    'poster_path'
-                ] ?>" alt="movie_title" class="w-100 mb-4">
-                <?php if (isset($_SESSION['user'])): ?>
-                <p><strong class="fs-6 fw-bold text-danger mt-4 mb-4">Trailer:</strong></p>
-                <div><?php if ($video === "") {
-                        ?> <p>Sorry, this trailer is not available</p> <?php
+                <img id="poster" src="https://image.tmdb.org/t/p/w300/<?= $infos['poster_path'] ?>" alt="movie_title" class="w-100 mb-4">
+                <?php if (isset($_SESSION['user'])) : ?>
+                    <p><strong class="fs-6 fw-bold text-danger mt-4 mb-4">Trailer:</strong></p>
+                    <div><?php if ($video === "") {
+                            ?> <p>Sorry, this trailer is not available</p> <?php
                                                                     } else { ?>
-                        <iframe width="560" height="315" class="w-100 h-100" id="trailer" src="<?= $video ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </iframe> <?php
+                            <iframe width="560" height="315" class="w-100 h-100" id="trailer" src="<?= $video ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </iframe> <?php
 
-                                                                    } ?></div>
-<!-- 
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5 mb-3">
-                <h2 id="title" class="text-start"><?= $infos['title'] ?>
-                </h2>
-                <div class="synopsis mt-4 mb-4 pt-4 pb-4 border-top border-danger">
-                    <h4>Synopsis</h4>
-                    <p id="synopsis"><?= $infos['overview'] ?></p>
-                </div>
-                <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
-                    <p class="fs-6 fw-bold text-danger">Genres: </p> <?php
-                                                                        foreach ($genres as $genre) { ?>
-                        <span class="mx-2 badge bg-light text-dark"><?= $genre ?></span>
-                    <?php } ?>
-
-                </div>
-                <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos['release_date'] ?></p>
-                <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos['vote_average'] ?></p>
-                <p><strong class="fs-6 fw-bold text-danger">Cast:</strong> Lorem acteurs</p>
-                <p><strong class="fs-6 fw-bold text-danger">Director:</strong> Lorem directeurs</p> -->
-                <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos['runtime'] . ' minutes' ?></p> -->
-
+                                                                    } ?>
+                    </div>
 
             </div>
-            <?php else: ?>
+        <?php else : ?>
             <div class="card-header">
                 <span class="badge rounded-pill bg-light text-dark  ">Members only</span>
             </div>
@@ -167,39 +145,41 @@ if (!empty($_POST)) {
                 <a href="./create_account.php" class="btn btn-outline-danger">Sign up</a>
             </div>
         </div>
-        <?php endif; ?>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5 mb-3">
-            <h2 id="title" class="text-start"><?= $infos['title'] ?>
-            </h2>
-            <div class="synopsis mt-4 mb-4 pt-4 pb-4 border-top border-danger">
-                <h4>Synopsis</h4>
-                <p id="synopsis"><?= $infos['overview'] ?></p>
-            </div>
-            <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
-                <p class="fs-6 fw-bold text-danger">Genres: </p>
-                <span class="mx-2 badge bg-light text-dark">Horror</span>
-            </div>
-            <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos[
-                'release_date'
-            ] ?></p>
-            <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos[
-                'vote_average'
-            ] ?></p>
-            <!-- <p><strong class="fs-6 fw-bold text-danger">Cast:</strong> Lorem acteurs</p>
-                <p><strong class="fs-6 fw-bold text-danger">Director:</strong> Lorem directeurs</p> -->
-            <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos[
-                'runtime'
-            ] . ' minutes' ?></p>
+    <?php endif; ?>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5 mb-3">
+        <h2 id="title" class="text-start"><?= $infos['title'] ?>
+        </h2>
+        <div class="synopsis mt-4 mb-4 pt-4 pb-4 border-top border-danger">
+            <h4>Synopsis</h4>
+            <p id="synopsis"><?= $infos['overview'] ?></p>
+        </div>
+        <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
+            <p class="fs-6 fw-bold text-danger">Genres: </p> <?php
+                                                                foreach ($genres as $genre) { ?>
+                <span class="mx-2 badge bg-light text-dark"><?= $genre ?></span>
+            <?php } ?>
 
         </div>
-        <!-- <div class="mb-3">
+        <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos['release_date'] ?></p>
+        <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos['vote_average'] ?></p>
+        <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos['runtime'] . ' minutes' ?></p>
+
+
+    </div>
+
+
+
+
+
+
+    <!-- <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email address</label>
             <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
         </div> -->
-        <?php if (isset($error)) {
-            echo $error;
-        } ?>
-        <?php if (isset($_SESSION['user'])): ?>
+    <?php if (isset($error)) {
+        echo $error;
+    } ?>
+    <?php if (isset($_SESSION['user'])) : ?>
         <form method="post" action="" id="form">
             <?php echo $error; ?>
             <div class="mb-3">
@@ -210,15 +190,15 @@ if (!empty($_POST)) {
             </div>
         </form>
         <div>
-            <?php endif; ?>
-            <h4>Comments :</h4>
-            <?php while ($c = $commentaire->fetch()) { ?>
+        <?php endif; ?>
+        <h4>Comments :</h4>
+        <?php while ($c = $commentaire->fetch()) { ?>
             <div class="row" id="card_comment">
                 <p id="mail"><?php echo $c['email']; ?></p>
                 <p id="comment"><?php echo $c['comment']; ?></p>
                 <p id="date"><?php echo $c['date_time']; ?></p>
             </div>
-            <?php } ?>
+        <?php } ?>
         </div>
 
 
