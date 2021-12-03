@@ -11,11 +11,13 @@
                 <li class="nav-item px-4 mt-4">
                     <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
                 </li>
+                <?php if (isset($_SESSION['user'])): ?>
                 <li class="nav-item px-4 mt-4">
                     <a class="nav-link" href="./profil.php">
                         My profile
                     </a>
                 </li>
+                <?php endif; ?>
                 <?php if (!isset($_SESSION['user'])): ?>
                 <li class="nav-item px-4 mt-4">
                     <a class="nav-link" href="./create_account.php">Register</a>

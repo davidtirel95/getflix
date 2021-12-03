@@ -2,7 +2,7 @@
 // On va pouvoir connecter la session
 session_start();
 if (isset($_SESSION['user'])) {
-    header('Location: ./profil.php');
+    header('Location: ./main.php');
     exit();
 }
 // Placer la partie logique autant que possible séparée de l'html
@@ -65,7 +65,7 @@ if (!empty($_POST)) {
                 ];
 
                 // On peut rediriger l'utilisateur
-                header('Location: ./profil.php');
+                header('Location: ./main.php');
             }
         }
     } else {

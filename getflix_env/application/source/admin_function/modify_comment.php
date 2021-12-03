@@ -10,9 +10,13 @@ if ($_SESSION['user']['user_type'] === 'user') {
     header('Location: ./profil.php');
     exit();
 }
+// recup des données et création de var pour le form modify
+if (isset($_GET['id'])) {
+    include_once '../connect.php';
+    $req = $conn->query('SELECT * FROM comments WHERE user_id=' . $_GET['id']);
+    $req->execute();
+}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,80 +40,69 @@ if ($_SESSION['user']['user_type'] === 'user') {
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/8e9298d105.js" crossorigin="anonymous"></script>
     <!-- styles -->
-    <link rel="stylesheet" href="./assets/css/header.css">
-    <link rel="stylesheet" href="./assets/css/styles.css">
-    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
     <!-- Flèches typo -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-dark text-white">
-    <?php include_once './header.php'; ?>
+
     <!-- Titre et logo -->
     <div class="container" id="logo_et_titre">
         <div class="row mb-4 mt-4">
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center">
                 <div class="text-center" id="logo_container">
-                    <img src="./img/netflix_petit.png" alt="logo" id="logo">
+                    <img src="../img/netflix_petit.png" alt="logo" id="logo">
                 </div>
                 <h5 class="text-center">Admin room</h5>
             </div>
         </div>
     </div>
-
+    <!-- nav admin -->
+    <ul>
+        <li><a href="../admin.php">admin pannel</a></li>
+    </ul>
     <!-- Form new account -->
     <div class="container" id="sign_in">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4 mx-auto justify-content-center">
                 <br>
                 <?php
-                include_once './connect.php';
-
-                $qry = 'SELECT * FROM `register`'; // Your query
-                $result = $conn->query($qry); // execute query
-                $result->execute();
-
                 echo '<table>
-                <tr>
-                <th>supprimer</th>
-                <th>modifier</th>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>email</th>
-                <th>type</th>
-                </tr>';
-                while ($row = $result->fetch()) {
+                 <tr>
+                 <th>supprimer</th>
+                 <th>modifier</th>
+                 <th>comment</th>
+                 <th>date</th>
+                 </tr>';
+                while ($row = $req->fetch()) {
                     echo '<tr>';
                     echo '<td>' .
-                        "<a href='./admin_function/delete_user.php?id=" .
+                        "<a href='../admin_function/delete_comment.php?id=" .
                         $row['id'] .
                         "'>supprimer</a>" .
                         '</td>';
                     echo '<td>' .
-                        "<a href='./admin_function/modify_user.php?id=" .
+                        "<a href='../admin_function/edit_comment.php?id=" .
                         $row['id'] .
                         "'>modifier</a>" .
                         '</td>';
-                    echo '<td>' .
-                        "<a href='./admin_function/modify_comment.php?id=" .
-                        $row['id'] .
-                        "'>commentaires</a>" .
-                        '</td>';
-                    echo '<td>' . $row['id'] . '</td>';
-                    echo '<td>' . $row['first_name'] . '</td>';
-                    echo '<td>' . $row['last_name'] . '</td>';
-                    echo '<td>' . $row['email'] . '</td>';
-                    echo '<td>' . $row['user_type'] . '</td>';
+                    echo '<td>' . $row['comment'] . '</td>';
+                    echo '<td>' . $row['date_time'] . '</td>';
                     echo '</tr>';
                 }
                 echo '</table>';
                 ?>
+
+
+
             </div>
         </div>
     </div>
 
-    <?php include_once './footer.php'; ?>
+    <?php include_once '../footer.php'; ?>
     <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
     <!--  Popper and Bootstrap JS jquery-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

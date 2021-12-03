@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 } else {
@@ -69,6 +70,33 @@ $video = $data2['results'];
 $video = $youtube_link . $video[0]['key'];
 
 //echo $video;
+require_once './connect.php';
+$message = '';
+// recup les commentaires
+$sql = 'SELECT * FROM comments WHERE id_movie=:id_movie ORDER BY id DESC';
+$commentaire = $conn->prepare($sql);
+$commentaire->bindParam(':id_movie', $id, PDO::PARAM_STR);
+$commentaire->execute();
+// ajouter des commentaires
+if (!empty($_POST)) {
+    if (isset($_POST['comment']) && !empty($_POST['comment'])) {
+        $comment = strip_tags($_POST['comment']);
+        $user = $_SESSION['user']['email'];
+        $userId = $_SESSION['user']['id'];
+        $sql =
+            'INSERT INTO `comments`(`comment`, `email`, `id_movie`, `user_id`,`date_time`) VALUES (:comment, :email, :id_movie, :user_id, NOW())';
+        $chngpwd1 = $conn->prepare($sql);
+        $chngpwd1->bindParam(':comment', $comment, PDO::PARAM_STR);
+        $chngpwd1->bindParam(':email', $user, PDO::PARAM_STR);
+        $chngpwd1->bindParam(':id_movie', $id, PDO::PARAM_STR);
+        $chngpwd1->bindParam(':user_id', $userId, PDO::PARAM_STR);
+        $chngpwd1->execute();
+        $message = '<p style="color:green">Comment send</p>';
+        header('Location: movie_page.php?id=' . $id);
+    } else {
+        $error = 'Champs non rempli';
+    }
+}
 ?>
 
 
@@ -87,7 +115,9 @@ $video = $youtube_link . $video[0]['key'];
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <!-- My styles -->
+    <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/caroussel.css">
+    <link rel="stylesheet" href="./assets/css/movie_page.css">
     <title>Movie page details</title>
     <!-- Font Rajdhani -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -106,12 +136,14 @@ $video = $youtube_link . $video[0]['key'];
 <body class="bg-dark text-white">
     <?php include_once './header.php'; ?>
     <!-- Voici le MENU -->
+
     <div class="container">
         <div class="row" id="movie_details">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mx-auto justify-content-center mt-5 mb-3">
                 <img id="poster" src="https://image.tmdb.org/t/p/w300/<?= $infos[
                     'poster_path'
                 ] ?>" alt="movie_title" class="w-100 mb-4">
+                <?php if (isset($_SESSION['user'])): ?>
                 <p><strong class="fs-6 fw-bold text-danger mt-4 mb-4">Trailer:</strong></p>
                 <div>
                     <iframe width="560" height="315" class="w-100 h-100" id="trailer" src="<?= $video ?>"
@@ -120,37 +152,71 @@ $video = $youtube_link . $video[0]['key'];
                         allowfullscreen></iframe>
                     </iframe>
                 </div>
-
-
-
-
             </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5 mb-3">
-                <h2 id="title" class="text-start"><?= $infos['title'] ?>
-                </h2>
-                <div class="synopsis mt-4 mb-4 pt-4 pb-4 border-top border-danger">
-                    <h4>Synopsis</h4>
-                    <p id="synopsis"><?= $infos['overview'] ?></p>
-                </div>
-                <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
-                    <p class="fs-6 fw-bold text-danger">Genres: </p>
-                    <span class="mx-2 badge bg-light text-dark">Horror</span>
-                </div>
-                <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos[
-                    'release_date'
-                ] ?></p>
-                <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos[
-                    'vote_average'
-                ] ?></p>
-                <!-- <p><strong class="fs-6 fw-bold text-danger">Cast:</strong> Lorem acteurs</p>
-                <p><strong class="fs-6 fw-bold text-danger">Director:</strong> Lorem directeurs</p> -->
-                <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos[
-                    'runtime'
-                ] . ' minutes' ?></p>
-
+            <?php else: ?>
+            <div class="card-header">
+                <span class="badge rounded-pill bg-light text-dark  ">Members only</span>
+            </div>
+            <div class="card-body border-top border-danger">
+                <h5 class="card-title">Not a member?</h5>
+                <p class="card-text">Become a member quickly to access our video content.</p>
+                <a href="./create_account.php" class="btn btn-outline-danger">Sign up</a>
             </div>
         </div>
+        <?php endif; ?>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5 mb-3">
+            <h2 id="title" class="text-start"><?= $infos['title'] ?>
+            </h2>
+            <div class="synopsis mt-4 mb-4 pt-4 pb-4 border-top border-danger">
+                <h4>Synopsis</h4>
+                <p id="synopsis"><?= $infos['overview'] ?></p>
+            </div>
+            <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
+                <p class="fs-6 fw-bold text-danger">Genres: </p>
+                <span class="mx-2 badge bg-light text-dark">Horror</span>
+            </div>
+            <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos[
+                'release_date'
+            ] ?></p>
+            <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos[
+                'vote_average'
+            ] ?></p>
+            <!-- <p><strong class="fs-6 fw-bold text-danger">Cast:</strong> Lorem acteurs</p>
+                <p><strong class="fs-6 fw-bold text-danger">Director:</strong> Lorem directeurs</p> -->
+            <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos[
+                'runtime'
+            ] . ' minutes' ?></p>
+
+        </div>
+        <!-- <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div> -->
+        <?php if (isset($error)) {
+            echo $error;
+        } ?>
+        <form method="post" action="" id="form">
+            <?php echo $error; ?>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label" name="comment">leave a comment :</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="comment" rows="3"></textarea>
+                <br>
+                <button name="submit" type="submit" class="btn btn-outline-light" name="submit_comment">send</button>
+            </div>
+        </form>
+        <div>
+            <h4>Comments :</h4>
+            <?php while ($c = $commentaire->fetch()) { ?>
+            <div class="row" id="card_comment">
+                <p id="mail"><?php echo $c['email']; ?></p>
+                <p id="comment"><?php echo $c['comment']; ?></p>
+                <p id="date"><?php echo $c['date_time']; ?></p>
+            </div>
+            <?php } ?>
+        </div>
+
+
+    </div>
     </div>
     <?php include_once './footer.php'; ?>
     <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->

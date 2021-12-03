@@ -81,6 +81,7 @@ if (!empty($_POST)) {
                 $_SESSION['error'][] =
                     'The password has to be the same in both entries';
             }
+            // regex
             if (
                 !preg_match(
                     '~(?=.*[0-9])(?=.*[a-z])^[a-zA-Z0-9]{8,13}$~',
@@ -90,6 +91,7 @@ if (!empty($_POST)) {
                 $_SESSION['error'][] =
                     'the password must contain at least 1 letter and 1 number and no space';
             }
+
             if ($_SESSION['error'] === []) {
                 // On va hacher le mot de passe
                 $password = password_hash($password, PASSWORD_ARGON2ID);
@@ -119,7 +121,7 @@ if (!empty($_POST)) {
 
                 // On peut rediriger l'utilisateur
                 //header("profile: index.php");
-                header('Location: ./profil.php');
+                header('Location: ./main.php');
             }
         }
     } else {
