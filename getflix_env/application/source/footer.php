@@ -20,7 +20,7 @@
 
 
             <!-- Github -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fa fa-github"></i></a>
+            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/gysenlionel/getflix" role="button"><i class="fa fa-github"></i></a>
         </section>
         <!-- Section: Social media -->
     </div>
@@ -29,7 +29,9 @@
     <!-- Copyright -->
     <div class="text-center p-3 bg-dark">
         © 2021 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">Clara Climent, Lionel Gysen, David Tirel & Morgane
+        <a class="text-white" href="https://github.com/ClaraCliment">Clara Climent,
+            <a class="text-white" href="https://github.com/gysenlionel"> Lionel Gysen,<a class="text-white" 
+            href="https://github.com/davidtirel95"> David Tirel & <a class="text-white" href="https://github.com/MorganeFanon">Morgane
             Fanon</a>
     </div>
     <!-- Copyright -->
