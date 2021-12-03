@@ -75,7 +75,7 @@ session_start();
         </a>
     </div>
 
-    <!-- Tous les films -->
+    <!-- Tous les films horror -->
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mx-auto justify-content-center">
