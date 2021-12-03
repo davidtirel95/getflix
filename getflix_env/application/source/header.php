@@ -10,7 +10,8 @@
                 <li class="nav-item mx-4 my-auto">
                     <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
                 </li>
-                <li class="nav-item mx-4 my-auto">
+                <?php if (isset($_SESSION['user'])): ?>
+                    <li class="nav-item mx-4 my-auto">
                     <a class="nav-link" href="./profil.php">
                         <img src="./img/person.svg" alt="user"> My profile
                     </a>

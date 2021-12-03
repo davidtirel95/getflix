@@ -54,20 +54,33 @@ if (!empty($_POST)) {
                 // clean + hash
                 $newpassword = trim(test_input($newpassword));
                 $newpassword = password_hash($newpassword, PASSWORD_ARGON2ID);
+                // regex
+                if (
+                    !preg_match(
+                        '~(?=.*[0-9])(?=.*[a-z])^[a-zA-Z0-9]{8,13}$~',
+                        $password
+                    )
+                ) {
+                    $_SESSION['error'][] =
+                        "<p style='color:red'>the password must contain at least 1 letter and 1 number and no space</p>";
+                }
 
-                // envoyé le nouveau mot de passe
+                if ($_SESSION['error'] === []) {
+                    // envoyé le nouveau mot de passe
 
-                $con = 'update register set password=:newpassword where id=:id';
-                $chngpwd1 = $conn->prepare($con);
-                $chngpwd1->bindParam(':id', $id, PDO::PARAM_STR);
-                $chngpwd1->bindParam(
-                    ':newpassword',
-                    $newpassword,
-                    PDO::PARAM_STR
-                );
-                $chngpwd1->execute();
-                $msg =
-                    "<p style='color:green'>Your Password succesfully changed</p>";
+                    $con =
+                        'update register set password=:newpassword where id=:id';
+                    $chngpwd1 = $conn->prepare($con);
+                    $chngpwd1->bindParam(':id', $id, PDO::PARAM_STR);
+                    $chngpwd1->bindParam(
+                        ':newpassword',
+                        $newpassword,
+                        PDO::PARAM_STR
+                    );
+                    $chngpwd1->execute();
+                    $msg =
+                        "<p style='color:green'>Your Password succesfully changed</p>";
+                }
             }
         }
     } else {

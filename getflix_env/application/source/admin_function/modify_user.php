@@ -119,7 +119,9 @@ if (!empty($_POST)) {
                 // redirection vers admin room
                 header('Location: ../admin.php');
             }
+            header('refresh:1;url=../admin.php');
         }
+        header('refresh:1;url=../admin.php');
     }
 }
 ?>
