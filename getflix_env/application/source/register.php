@@ -83,18 +83,14 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- icone onglet à placer plus tard 
-    <link rel="icon" type="image/png" href="">
-    -->
+    <link rel="icon" type="logo_icon" href="./img/cercle.svg">
     <!-- Bootstrap styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Create account</title>
     <!-- Font Rajdhani -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/8e9298d105.js" crossorigin="anonymous"></script>
     <!-- styles -->
@@ -111,11 +107,9 @@ if (!empty($_POST)) {
 
         <div class="row mb-4 mt-4">
 
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center">
-                <div class="text-center" id="logo_container">
-                    <img src="./img/netflix_petit.png" alt="logo" id="logo">
-                </div>
-                <h5 class="text-center">Plongez dans l'horreur avec Getflix</h5>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5">
+
+                <h5 class="text-center">Welcome back!</h5>
             </div>
         </div>
     </div>
@@ -127,18 +121,16 @@ if (!empty($_POST)) {
                 <!-- S'identifier // form -->
                 <?php if (isset($_SESSION['error'])) {
                     foreach ($_SESSION['error'] as $message) { ?>
-                <p style='color:red'><?php echo $message; ?></p>
+                        <p style='color:red'><?php echo $message; ?></p>
                 <?php }
                     unset($_SESSION['error']);
                 } ?>
                 <form method="post" action="" id="form">
                     <div class="mb-3">
-                        <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" placeholder="email address" autofocus required>
+                        <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email address" autofocus required>
                     </div>
                     <div class="mb-3">
-                        <input type="password" name="password" class="form-control form-control-lg"
-                            id="exampleInputPassword1" placeholder="password" maxlength="13" minlength="8" required>
+                        <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="password" maxlength="13" minlength="8" required>
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -158,8 +150,7 @@ if (!empty($_POST)) {
                     <a href="./forgot_password.php" class="text-light">Mot de passe oublié?</a>
                 </div>
                 <div class="pt-4">
-                    <a href="./create_account.php" class="text-light link-light">Not a member?<strong
-                            class="text-danger"> Sign up now</strong> </a>
+                    <a href="./create_account.php" class="text-light link-light">Not a member?<strong class="text-danger"> Sign up now</strong> </a>
                 </div>
             </div>
         </div>
@@ -168,11 +159,9 @@ if (!empty($_POST)) {
     <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
     <!--  Popper and Bootstrap JS jquery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
     </script>
 </body>
 

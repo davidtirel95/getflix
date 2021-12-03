@@ -29,11 +29,11 @@
                         <button class="m-1 btn btn-dark boder border-1 border-danger px-3" type="submit"><a class="nav-link m-0 p-0" href="./deconnect.php">Logout</a></button>
                     </li>
                 <?php endif; ?>
-                <?php if ($_SESSION['user']['user_type'] === 'admin') : ?>
+                <?php if (isset($_SESSION['user']['user_type']) == 'admin') { ?>
                     <li class="nav-item mx-4 my-auto">
                         <a class="nav-link" href="./admin.php">Admin</a>
                     </li>
-                <?php endif; ?>
+                <?php } ?>
             </ul>
             <form action="./main.php" method="get" class="d-flex mx-4">
                 <input name="search2" value="" class="m-1 form-control bg-light border border-1 border-danger rounded-pill bg-opacity-10 text-light ps-3 ps-2" type="search" placeholder="Search" aria-label="Search">
