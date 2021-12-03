@@ -129,7 +129,6 @@ if (!empty($_POST)) {
     <div class="container">
         <div class="row" id="movie_details">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mx-auto justify-content-center mt-5 mb-3">
-<<<<<<< HEAD
                 <img id="poster" src="https://image.tmdb.org/t/p/w300/<?= $infos[
                     'poster_path'
                 ] ?>" alt="movie_title" class="w-100 mb-4">
@@ -144,19 +143,6 @@ if (!empty($_POST)) {
                         allowfullscreen></iframe>
                     </iframe> <?php } ?>
                 </div>
-=======
-                <img id="poster" src="https://image.tmdb.org/t/p/w300/<?= $infos['poster_path'] ?>" alt="movie_title" class="w-100 mb-4">
-                <?php if (isset($_SESSION['user'])) : ?>
-                    <p><strong class="fs-6 fw-bold text-danger mt-4 mb-4">Trailer:</strong></p>
-                    <div><?php if ($video === "") {
-                            ?> <p>Sorry, this trailer is not available</p> <?php
-                                                                        } else { ?>
-                            <iframe width="560" height="315" class="w-100 h-100" id="trailer" src="<?= $video ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </iframe> <?php
-
-                                                                        } ?>
-                    </div>
->>>>>>> ed33f128b935e5439ae78b800b0fe5d9236a6a2b
 
             </div>
             <?php else: ?>
@@ -179,46 +165,30 @@ if (!empty($_POST)) {
             </div>
             <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
                 <p class="fs-6 fw-bold text-danger">Genres: </p> <?php foreach (
-                $genres
-                as $genre
-            ) { ?>
+                    $genres
+                    as $genre
+                ) { ?>
                 <span class="mx-2 badge bg-light text-dark"><?= $genre ?></span>
                 <?php } ?>
 
             </div>
             <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos[
-            'release_date'
-        ] ?></p>
+                'release_date'
+            ] ?></p>
             <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos[
-            'vote_average'
-        ] ?></p>
+                'vote_average'
+            ] ?></p>
             <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos[
-            'runtime'
-        ] . ' minutes' ?></p>
+                'runtime'
+            ] . ' minutes' ?></p>
 
 
         </div>
 
-<<<<<<< HEAD
-
-
-
-
-
-        <!-- <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div> -->
         <?php if (isset($error)) {
         echo $error;
     } ?>
-        <?php if (isset($_SESSION['user'])): ?>
-=======
-    <?php if (isset($error)) {
-        echo $error;
-    } ?>
-    <?php if (isset($_SESSION['user'])) { ?>
->>>>>>> ed33f128b935e5439ae78b800b0fe5d9236a6a2b
+        <?php if (isset($_SESSION['user'])) { ?>
         <form method="post" action="" id="form">
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label" name="comment">leave a comment :</label>
@@ -227,43 +197,32 @@ if (!empty($_POST)) {
                 <button name="submit" type="submit" class="btn btn-outline-light" name="submit_comment">send</button>
             </div>
         </form>
-<<<<<<< HEAD
-        <div>
-            <?php endif; ?>
-            <h4>Comments :</h4>
-            <?php while ($c = $commentaire->fetch()) { ?>
-=======
 
         <div class="container">
->>>>>>> ed33f128b935e5439ae78b800b0fe5d9236a6a2b
             <div class="row" id="card_comment">
                 <div class="col-12">
                     <h4>Comments :</h4>
                     <?php while ($c = $commentaire->fetch()) { ?>
 
-                        <p id="mail"><?php echo $c['email']; ?></p>
-                        <p id="comment"><?php echo $c['comment']; ?></p>
-                        <p id="date"><?php echo $c['date_time']; ?></p>
+                    <p id="mail"><?php echo $c['email']; ?></p>
+                    <p id="comment"><?php echo $c['comment']; ?></p>
+                    <p id="date"><?php echo $c['date_time']; ?></p>
                     <?php } ?>
                 </div>
             </div>
-<<<<<<< HEAD
-            <?php } ?>
-=======
->>>>>>> ed33f128b935e5439ae78b800b0fe5d9236a6a2b
         </div>
-    <?php } ?>
+        <?php } ?>
 
 
 
-    <?php include_once './footer.php'; ?>
-    <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
-    <!--  Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
-    </script>
-    <!--  Mes js -->
-    <!-- <script src="./tous_les_films.js"></script> -->
+        <?php include_once './footer.php'; ?>
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
+        <!--  Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+        </script>
+        <!--  Mes js -->
+        <!-- <script src="./tous_les_films.js"></script> -->
 </body>
 
 </html>
