@@ -195,6 +195,7 @@ if (!empty($_POST)) {
         <?php if (isset($error)) {
             echo $error;
         } ?>
+        <?php if (isset($_SESSION['user'])): ?>
         <form method="post" action="" id="form">
             <?php echo $error; ?>
             <div class="mb-3">
@@ -205,6 +206,7 @@ if (!empty($_POST)) {
             </div>
         </form>
         <div>
+            <?php endif; ?>
             <h4>Comments :</h4>
             <?php while ($c = $commentaire->fetch()) { ?>
             <div class="row" id="card_comment">
