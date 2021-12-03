@@ -21,9 +21,9 @@ li {
 
 body {
   //height: 100vh;
-  width: 100%;
+  //width: 100%;
   //background-color: black;
-  display: flex;
+  //display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -137,3 +137,19 @@ body {
     }
   }
 }
+
+// Changer le glow bleu par defaut dans les input des foms
+
+// .form-control:focus {
+//   border-color: #ff0000;
+//   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset,
+//     0px 0px 8px rgba(212, 1, 1, 0.5);
+// }
+
+// Look boutons
+// .bton {
+//   text-decoration: none !important;
+// }
+// .btn:focus {
+//   outline: none !important;
+// }
