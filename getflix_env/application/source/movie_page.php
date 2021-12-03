@@ -10,7 +10,11 @@ if (isset($_GET['id'])) {
 
 $key = 'api_key=4080ddd8f97d6721f32f9d82aba61857';
 $curl = curl_init(
-    'http://api.themoviedb.org/3/movie/' . $id . '?' . $key . '&append_to_response=videos'
+    'http://api.themoviedb.org/3/movie/' .
+        $id .
+        '?' .
+        $key .
+        '&append_to_response=videos'
 );
 // ici il s'agit de donner le certificat mais ça ne marche pas!!
 //curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . DIRECTORY_SEPARATOR . 'cert.cer');
@@ -42,16 +46,17 @@ $actual_genres = $infos['genres'];
 //var_dump($actual_genres);
 $genres = [];
 foreach ($actual_genres as $value) {
-    array_push($genres, $value["name"]);
+    array_push($genres, $value['name']);
 }
 
 // les videos youtube
-if ($infos["videos"]["results"]) {
-    $video = "https://www.youtube.com/embed/" . ($infos["videos"]["results"][0]["key"]);
+if ($infos['videos']['results']) {
+    $video =
+        'https://www.youtube.com/embed/' .
+        $infos['videos']['results'][0]['key'];
 } else {
-    $video = "";
+    $video = '';
 }
-
 
 //echo $video;
 require_once './connect.php';
@@ -94,7 +99,8 @@ if (!empty($_POST)) {
     <link rel="icon" type="logo_icon" href="./img/cercle.svg">
 
     <!-- Bootstrap styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <!-- My styles -->
     <link rel="stylesheet" href="./assets/css/header.css">
@@ -104,7 +110,8 @@ if (!empty($_POST)) {
     <!-- Font Rajdhani -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/8e9298d105.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/header.css">
@@ -122,20 +129,23 @@ if (!empty($_POST)) {
     <div class="container">
         <div class="row" id="movie_details">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mx-auto justify-content-center mt-5 mb-3">
-                <img id="poster" src="https://image.tmdb.org/t/p/w300/<?= $infos['poster_path'] ?>" alt="movie_title" class="w-100 mb-4">
-                <?php if (isset($_SESSION['user'])) : ?>
-                    <p><strong class="fs-6 fw-bold text-danger mt-4 mb-4">Trailer:</strong></p>
-                    <div><?php if ($video === "") {
-                            ?> <p>Sorry, this trailer is not available</p> <?php
-                                                                    } else { ?>
-                            <iframe width="560" height="315" class="w-100 h-100" id="trailer" src="<?= $video ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </iframe> <?php
-
-                                                                    } ?>
-                    </div>
+                <img id="poster" src="https://image.tmdb.org/t/p/w300/<?= $infos[
+                    'poster_path'
+                ] ?>" alt="movie_title" class="w-100 mb-4">
+                <?php if (isset($_SESSION['user'])): ?>
+                <p><strong class="fs-6 fw-bold text-danger mt-4 mb-4">Trailer:</strong></p>
+                <div><?php if (
+                        $video === ''
+                    ) { ?> <p>Sorry, this trailer is not available</p> <?php } else { ?>
+                    <iframe width="560" height="315" class="w-100 h-100" id="trailer" src="<?= $video ?>"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                    </iframe> <?php } ?>
+                </div>
 
             </div>
-        <?php else : ?>
+            <?php else: ?>
             <div class="card-header">
                 <span class="badge rounded-pill bg-light text-dark  ">Members only</span>
             </div>
@@ -145,41 +155,49 @@ if (!empty($_POST)) {
                 <a href="./create_account.php" class="btn btn-outline-danger">Sign up</a>
             </div>
         </div>
-    <?php endif; ?>
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5 mb-3">
-        <h2 id="title" class="text-start"><?= $infos['title'] ?>
-        </h2>
-        <div class="synopsis mt-4 mb-4 pt-4 pb-4 border-top border-danger">
-            <h4>Synopsis</h4>
-            <p id="synopsis"><?= $infos['overview'] ?></p>
-        </div>
-        <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
-            <p class="fs-6 fw-bold text-danger">Genres: </p> <?php
-                                                                foreach ($genres as $genre) { ?>
+        <?php endif; ?>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center mt-5 mb-3">
+            <h2 id="title" class="text-start"><?= $infos['title'] ?>
+            </h2>
+            <div class="synopsis mt-4 mb-4 pt-4 pb-4 border-top border-danger">
+                <h4>Synopsis</h4>
+                <p id="synopsis"><?= $infos['overview'] ?></p>
+            </div>
+            <div id="genres_holder" class="genres_badges d-flex flex-row align-items-start">
+                <p class="fs-6 fw-bold text-danger">Genres: </p> <?php foreach (
+                $genres
+                as $genre
+            ) { ?>
                 <span class="mx-2 badge bg-light text-dark"><?= $genre ?></span>
-            <?php } ?>
+                <?php } ?>
+
+            </div>
+            <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos[
+            'release_date'
+        ] ?></p>
+            <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos[
+            'vote_average'
+        ] ?></p>
+            <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos[
+            'runtime'
+        ] . ' minutes' ?></p>
+
 
         </div>
-        <p><strong class="fs-6 fw-bold text-danger">Release date: &nbsp;</strong> <?= $infos['release_date'] ?></p>
-        <p><strong class="fs-6 fw-bold text-danger">Vote average: &nbsp;</strong> <?= $infos['vote_average'] ?></p>
-        <p><strong class="fs-6 fw-bold text-danger">Duration: &nbsp;</strong> <?= $infos['runtime'] . ' minutes' ?></p>
-
-
-    </div>
 
 
 
 
 
 
-    <!-- <div class="mb-3">
+        <!-- <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email address</label>
             <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
         </div> -->
-    <?php if (isset($error)) {
+        <?php if (isset($error)) {
         echo $error;
     } ?>
-    <?php if (isset($_SESSION['user'])) : ?>
+        <?php if (isset($_SESSION['user'])): ?>
         <form method="post" action="" id="form">
             <?php echo $error; ?>
             <div class="mb-3">
@@ -190,15 +208,15 @@ if (!empty($_POST)) {
             </div>
         </form>
         <div>
-        <?php endif; ?>
-        <h4>Comments :</h4>
-        <?php while ($c = $commentaire->fetch()) { ?>
+            <?php endif; ?>
+            <h4>Comments :</h4>
+            <?php while ($c = $commentaire->fetch()) { ?>
             <div class="row" id="card_comment">
                 <p id="mail"><?php echo $c['email']; ?></p>
                 <p id="comment"><?php echo $c['comment']; ?></p>
                 <p id="date"><?php echo $c['date_time']; ?></p>
             </div>
-        <?php } ?>
+            <?php } ?>
         </div>
 
 
@@ -207,7 +225,8 @@ if (!empty($_POST)) {
     <?php include_once './footer.php'; ?>
     <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
     <!--  Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
     </script>
     <!--  Mes js -->
     <!-- <script src="./tous_les_films.js"></script> -->
