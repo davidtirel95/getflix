@@ -65,12 +65,9 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- icone onglet à placer plus tard 
-    <link rel="icon" type="image/png" href="">
-    -->
+    <link rel="icon" type="logo_icon" href="./img/cercle.svg">
     <!-- Bootstrap styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <!-- My styles -->
     <link rel="stylesheet" href="./assets/css/header.css">
@@ -80,8 +77,7 @@ if (!empty($_POST)) {
     <!-- Font Rajdhani -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/8e9298d105.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/styles.css">
@@ -103,8 +99,7 @@ if (!empty($_POST)) {
             <?php echo $error; ?>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label" name="comment">leave a comment :</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="comment"
-                    rows="3"><?php echo $comment; ?></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="comment" rows="3"><?php echo $comment; ?></textarea>
                 <br>
                 <button name="submit" type="submit" class="btn btn-outline-light" name="submit_comment">send</button>
             </div>
@@ -118,8 +113,7 @@ if (!empty($_POST)) {
     <?php include_once '../footer.php'; ?>
     <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
     <!--  Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
     </script>
     <!--  Mes js -->
     <!-- <script src="./tous_les_films.js"></script> -->

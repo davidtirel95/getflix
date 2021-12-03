@@ -127,11 +127,11 @@ if (!empty($_POST)) {
                     <p><strong class="fs-6 fw-bold text-danger mt-4 mb-4">Trailer:</strong></p>
                     <div><?php if ($video === "") {
                             ?> <p>Sorry, this trailer is not available</p> <?php
-                                                                    } else { ?>
+                                                                        } else { ?>
                             <iframe width="560" height="315" class="w-100 h-100" id="trailer" src="<?= $video ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </iframe> <?php
 
-                                                                    } ?>
+                                                                        } ?>
                     </div>
 
             </div>
@@ -167,21 +167,11 @@ if (!empty($_POST)) {
 
     </div>
 
-
-
-
-
-
-    <!-- <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div> -->
     <?php if (isset($error)) {
         echo $error;
     } ?>
-    <?php if (isset($_SESSION['user'])) : ?>
+    <?php if (isset($_SESSION['user'])) { ?>
         <form method="post" action="" id="form">
-            <?php echo $error; ?>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label" name="comment">leave a comment :</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" name="comment" rows="3"></textarea>
@@ -189,21 +179,24 @@ if (!empty($_POST)) {
                 <button name="submit" type="submit" class="btn btn-outline-light" name="submit_comment">send</button>
             </div>
         </form>
-        <div>
-        <?php endif; ?>
-        <h4>Comments :</h4>
-        <?php while ($c = $commentaire->fetch()) { ?>
+
+        <div class="container">
             <div class="row" id="card_comment">
-                <p id="mail"><?php echo $c['email']; ?></p>
-                <p id="comment"><?php echo $c['comment']; ?></p>
-                <p id="date"><?php echo $c['date_time']; ?></p>
+                <div class="col-12">
+                    <h4>Comments :</h4>
+                    <?php while ($c = $commentaire->fetch()) { ?>
+
+                        <p id="mail"><?php echo $c['email']; ?></p>
+                        <p id="comment"><?php echo $c['comment']; ?></p>
+                        <p id="date"><?php echo $c['date_time']; ?></p>
+                    <?php } ?>
+                </div>
             </div>
-        <?php } ?>
         </div>
+    <?php } ?>
 
 
-    </div>
-    </div>
+
     <?php include_once './footer.php'; ?>
     <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
     <!--  Bootstrap JS -->
