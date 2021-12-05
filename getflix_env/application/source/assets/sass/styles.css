@@ -1,0 +1,35 @@
+body,
+h1,
+h2,
+h3,
+form,
+input,
+p,
+a,
+li {
+  font-family: "Rajdhani", sans-serif;
+}
+
+#logo {
+  width: 50%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 900px) and (min-width: 600px) {
+  #logo {
+    width: 40%;
+    height: auto;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #logo {
+    width: 40%;
+    height: auto;
+  }
+}
+/*# sourceMappingURL=styles.css.map */

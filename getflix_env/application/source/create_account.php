@@ -168,7 +168,11 @@ if (!empty($_POST)) {
                 <div class="text-center" id="logo_container">
                     <img src="" alt="" id="logo">
                 </div>
+<<<<<<< HEAD
                 <h5 class="text-center">Create your account and join the thrill</h5>
+=======
+                <h5 class="text-center">Create your account and join Room</h5>
+>>>>>>> 7059e82e18379d6e6cbb5505e0cfe90e8c430f40
             </div>
         </div>
     </div>

@@ -12,19 +12,19 @@
         <!-- Section: Social media -->
         <section class="mb-4 d-flex justify-content-center align-items-center ">
             <!-- Facebook -->
-            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button" style="width: 40px; height: 40px"><i class="fa fa-facebook-f"></i></a>
+            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#" role="button" style="width: 40px; height: 40px"><i class="fa fa-facebook-f"></i></a>
 
             <!-- Twitter -->
-            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button" style="width: 40px; height: 40px"><i class="fa fa-twitter"></i></a>
+            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#" role="button" style="width: 40px; height: 40px"><i class="fa fa-twitter"></i></a>
 
             <!-- Google -->
-            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button" style="width: 40px; height: 40px"><i class="fa fa-google"></i></a>
+            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#" role="button" style="width: 40px; height: 40px"><i class="fa fa-google"></i></a>
 
             <!-- Instagram -->
-            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button" style="width: 40px; height: 40px"><i class="fa fa-instagram"></i></a>
+            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#" role="button" style="width: 40px; height: 40px"><i class="fa fa-instagram"></i></a>
 
             <!-- Github -->
-            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button" style="width: 40px; height: 40px"><i class="fa fa-github"></i></a>
+            <a class="d-flex align-items-center btn btn-outline-light btn-floating m-1 rounded-circle" href="https://github.com/gysenlionel/getflix" role="button" style="width: 40px; height: 40px"><i class="fa fa-github"></i></a>
         </section>
         <!-- Section: Social media -->
     </div>
