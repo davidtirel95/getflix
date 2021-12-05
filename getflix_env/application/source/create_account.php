@@ -20,6 +20,13 @@ function test_input($data)
     $data = strip_tags($data);
     return $data;
 }
+
+function compteSansSpace($data)
+{
+    $data2 = str_replace(' ', '', $data);
+    $data3 = strlen($data2);
+    return $data3;
+}
 // vérifier si le form a été envoye
 if (!empty($_POST)) {
     // à partir d'ici je sais que le formulaire a été envoyé
@@ -44,10 +51,10 @@ if (!empty($_POST)) {
         $first_name = test_input($_POST['first_name']);
         $last_name = test_input($_POST['last_name']);
         $_SESSION['error'] = [];
-        if (strlen($first_name) < 1) {
+        if (compteSansSpace($first_name) < 1) {
             $_SESSION['error'][] = 'first name to short';
         }
-        if (strlen($last_name) < 1) {
+        if (compteSansSpace($last_name) < 1) {
             $_SESSION['error'][] = 'last name to short';
         }
         // je vérifie que le mail donné a bien une structure email
@@ -68,19 +75,26 @@ if (!empty($_POST)) {
             }
 
             // vérifier que le password check est bon
-            if (
-                trim(test_input($_POST['password'])) !=
-                trim(test_input($_POST['password2']))
-            ) {
+            $password = trim(test_input($_POST['password']));
+            $password2 = trim(test_input($_POST['password2']));
+            if ($password != $password2) {
                 $_SESSION['error'][] =
                     'The password has to be the same in both entries';
             }
+            // regex
+            if (
+                !preg_match(
+                    '~(?=.*[0-9])(?=.*[a-z])^[a-zA-Z0-9]{8,13}$~',
+                    $password
+                )
+            ) {
+                $_SESSION['error'][] =
+                    'the password must contain at least 1 letter and 1 number and no space';
+            }
+
             if ($_SESSION['error'] === []) {
                 // On va hacher le mot de passe
-                $password = password_hash(
-                    $_POST['password'],
-                    PASSWORD_ARGON2ID
-                );
+                $password = password_hash($password, PASSWORD_ARGON2ID);
 
                 // Ici on peut ajouter tous les contrôles supplémentaires qu'on souhaite (nom?prenom?)
 
@@ -107,7 +121,7 @@ if (!empty($_POST)) {
 
                 // On peut rediriger l'utilisateur
                 //header("profile: index.php");
-                header('Location: ./profil.php');
+                header('Location: ./main.php');
             }
         }
     } else {
@@ -119,7 +133,31 @@ if (!empty($_POST)) {
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include_once './head.php'; ?>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- icone onglet à placer plus tard 
+    <link rel="icon" type="image/png" href="">
+    -->
+    <!-- Bootstrap styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Create account</title>
+    <!-- Font Rajdhani -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/8e9298d105.js" crossorigin="anonymous"></script>
+    <!-- styles -->
+    <link rel="stylesheet" href="./assets/css/header.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <!-- Flèches typo -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+</head>
 
 <body class="bg-dark text-white">
     <?php include_once './header.php'; ?>
@@ -128,9 +166,9 @@ if (!empty($_POST)) {
         <div class="row mb-4 mt-4">
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center">
                 <div class="text-center" id="logo_container">
-                    <img src="./img/netflix_petit.png" alt="logo" id="logo">
+                    <img src="" alt="" id="logo">
                 </div>
-                <h5 class="text-center">Create your account and join Getflix</h5>
+                <h5 class="text-center">Create your account and join the thrill</h5>
             </div>
         </div>
     </div>

@@ -1,70 +1,44 @@
-<header>
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid px-5">
-            <a class="navbar-brand" href="#">
-                <h1>GetFlix</h1>
-            </a><img src="./img/EyeHorror.png" alt="..." height="80">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded=" false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav px-5">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
-                    </li>
-
-                    <li class="nav-item dropdown px-5">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Genres
+<nav class="navbar navbar-expand-lg navbar-dark bg-black py-2">
+    <div class="container-fluid">
+        <a class="navbar-brand px-4" href="./main.php">
+            <img src="./img/logo_room237.svg"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-lg-0">
+                <li class="nav-item mx-4 my-auto">
+                    <a class="nav-link active" aria-current="page" href="./main.php">Home</a>
+                </li>
+                <?php if (isset($_SESSION['user'])) : ?>
+                    <li class="nav-item mx-4 my-auto">
+                        <a class="nav-link" href="./profil.php">
+                            <img src="./img/person.svg" alt="user"> My profile
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Animated movies</a></li>
-                            <li><a class="dropdown-item" href="#">Cannibal</a></li>
-                            <li><a class="dropdown-item" href="#">Comedy</a></li>
-                            <li><a class="dropdown-item" href="#">Gore</a></li>
-                            <li><a class="dropdown-item" href="#">Killer</a></li>
-                            <li><a class="dropdown-item" href="#">Monster movies</a></li>
-                            <li><a class="dropdown-item" href="#">Paranormal</a></li>
-                            <li><a class="dropdown-item" href="#">Psychological</a></li>
-                            <li><a class="dropdown-item" href="#">Slasher</a></li>
-                            <li><a class="dropdown-item" href="#">Zombies</a></li>
-                            <li>
-                                <div class="dropdown-divider"></div>
-                            </li>
-                            <li><a class="dropdown-item" href="#">More genres</a></li>
-                        </ul>
                     </li>
-
-                    <li class="nav-item px-4">
-                        <a class="nav-link" href="./profil.php">My profile</a>
+                <?php endif; ?>
+                <?php if (!isset($_SESSION['user'])) : ?>
+                    <li class="nav-item mx-4 my-auto">
+                        <a class="nav-link" href="./create_account.php">Subscribe</a>
                     </li>
-                    <li class="nav-item px-4">
-                        <a class="nav-link" href="./create_account.php">Create account</a>
+                    <li class="nav-item mx-4 my-auto">
+                        <button class="m-1 btn btn-danger px-3"><a class="nav-link  m-0 p-0" href="./register.php">Login</a></button>
                     </li>
-                    <li class="nav-item px-4">
-                        <a class="nav-link" href="./register.php">Connect</a>
+                <?php else : ?>
+                    <li class="nav-item mx-4 my-auto">
+                        <button class="m-1 btn btn-dark boder border-1 border-danger px-3" type="submit"><a class="nav-link m-0 p-0" href="./deconnect.php">Logout</a></button>
                     </li>
-                    <li class="nav-item px-4">
-                        <a class="nav-link" href="./deconnect.php">Deconnect</a>
+                <?php endif; ?>
+                <?php if ($_SESSION['user']['user_type'] === 'admin') : ?>
+                    <li class="nav-item mx-4 my-auto">
+                        <a class="nav-link" href="./admin.php">Admin</a>
                     </li>
-
-
-                </ul>
-            </div>
-
-
-            <form action="" class="">
-                <div class="input-group my-4">
-                    <input type="text" class="form-control form-control-lg" placeholder="let's scream...">
-                    <button type="submit" class="input-group-text btn-danger"><i class="bi bi-search me-2"></i>
-                        Search</button>
-                </div>
+                <?php endif; ?>
+            </ul>
+            <form action="./main.php" method="get" class="d-flex mx-4">
+                <input name="search2" value="" class="m-1 form-control bg-light border border-1 border-danger rounded-pill bg-opacity-10 text-light ps-3 ps-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="m-1 btn btn-danger px-3" type="submit"><img src="./img/search.svg" alt="search"></button>
             </form>
-
         </div>
-    </nav>
-</header>
+    </div>
+</nav>

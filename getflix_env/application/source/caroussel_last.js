@@ -33,13 +33,17 @@ async function showMovieData() {
         HORROR_LATEST
     );
 
-    console.log(result.data.results)
+    //console.log(result.data.results)
     result = result.data.results;
 
     result.map(function (cur, index){
         sliders.insertAdjacentHTML(
             "beforeend",
-            `<img class="img-${index} slider-img" src="https://image.tmdb.org/t/p/w185/${cur.poster_path}" />`
+            `<form action="" method="GET" class="form_movie img-${index}" name="movie" value="${cur.id}">
+                <a class="lien" style="max-width: 185px;" href="./movie_page.php?id=${cur.id}">
+                    <img style="max-width: 154px;" id="${cur.id}" src="https://image.tmdb.org/t/p/w154/${cur.poster_path}" class="img_poster" alt="${cur.id}">
+                </a>
+            </form>`
         )
     })
 

@@ -54,20 +54,33 @@ if (!empty($_POST)) {
                 // clean + hash
                 $newpassword = trim(test_input($newpassword));
                 $newpassword = password_hash($newpassword, PASSWORD_ARGON2ID);
+                // regex
+                if (
+                    !preg_match(
+                        '~(?=.*[0-9])(?=.*[a-z])^[a-zA-Z0-9]{8,13}$~',
+                        $password
+                    )
+                ) {
+                    $_SESSION['error'][] =
+                        "<p style='color:red'>the password must contain at least 1 letter and 1 number and no space</p>";
+                }
 
-                // envoyé le nouveau mot de passe
+                if ($_SESSION['error'] === []) {
+                    // envoyé le nouveau mot de passe
 
-                $con = 'update register set password=:newpassword where id=:id';
-                $chngpwd1 = $conn->prepare($con);
-                $chngpwd1->bindParam(':id', $id, PDO::PARAM_STR);
-                $chngpwd1->bindParam(
-                    ':newpassword',
-                    $newpassword,
-                    PDO::PARAM_STR
-                );
-                $chngpwd1->execute();
-                $msg =
-                    "<p style='color:green'>Your Password succesfully changed</p>";
+                    $con =
+                        'update register set password=:newpassword where id=:id';
+                    $chngpwd1 = $conn->prepare($con);
+                    $chngpwd1->bindParam(':id', $id, PDO::PARAM_STR);
+                    $chngpwd1->bindParam(
+                        ':newpassword',
+                        $newpassword,
+                        PDO::PARAM_STR
+                    );
+                    $chngpwd1->execute();
+                    $msg =
+                        "<p style='color:green'>Your Password succesfully changed</p>";
+                }
             }
         }
     } else {
@@ -128,16 +141,42 @@ if (
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include_once './head.php'; ?>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- icone onglet à placer plus tard 
+    <link rel="icon" type="image/png" href="">
+    -->
+    <!-- Bootstrap styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Create account</title>
+    <!-- Font Rajdhani -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/8e9298d105.js" crossorigin="anonymous"></script>
+    <!-- styles -->
+    <link rel="stylesheet" href="./assets/css/header.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <!-- Flèches typo -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+</head>
 
 <body class="bg-dark text-white">
     <?php include_once './header.php'; ?>
     <!-- Titre et logo -->
     <div class="container" id="logo_et_titre">
+
         <div class="row mb-4 mt-4">
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center">
+
                 <div class="text-center" id="logo_container">
-                    <img src="./img/netflix_petit.png" alt="logo" id="logo">
+                    <img src="" alt="" id="logo">
                 </div>
                 <h5 class="text-center">Hello <?php echo $_SESSION['user'][
                     'first_name'

@@ -20,11 +20,10 @@ if (isset($_GET['id'])) {
         $userLastName = $userId['last_name'];
         $userMail = $userId['email'];
         $userType = $userId['user_type'];
+        $userDisplayId = $userId['id'];
     } else {
         header('Location: ../profil.php');
     }
-} else {
-    header('Location: ../profil.php');
 }
 
 function test_input($data)
@@ -36,28 +35,34 @@ function test_input($data)
 }
 
 // modifier le profil
+
 if (!empty($_POST)) {
     if (
         isset(
             $_POST['first_name'],
             $_POST['last_name'],
             $_POST['email'],
-            $_POST['user_type']
+            $_POST['user_type'],
+            $_POST['userDisplayId']
         ) &&
         !empty($_POST['first_name']) &&
         !empty($_POST['last_name']) &&
         !empty($_POST['email']) &&
-        !empty($_POST['user_type'])
+        !empty($_POST['user_type']) &&
+        !empty($_POST['userDisplayId'])
     ) {
-        $_SESSION['message'] = [];
         // clean les variables
         $newfirst_name = test_input($_POST['first_name']);
         $newlast_name = test_input($_POST['last_name']);
+        $userDisplayId = test_input($_POST['userDisplayId']);
+        $userType = test_input($_POST['user_type']);
+        $_SESSION['error'] = [];
 
-        if (strlen($first_name) < 1) {
+        if (strlen($newfirst_name) < 1) {
             $_SESSION['error'][] = 'first name to short';
         }
-        if (strlen($last_name) < 1) {
+
+        if (strlen($newlast_name) < 1) {
             $_SESSION['error'][] = 'last name to short';
         }
 
@@ -65,17 +70,58 @@ if (!empty($_POST)) {
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $_SESSION['error'][] = 'This email is invalid.';
         }
+
+        if (strlen($newlast_name) < 1) {
+            $_SESSION['error'][] = 'last name to short';
+        }
         if ($_SESSION['error'] === []) {
             $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-
-            // select * from your_table where id !=5
-            // comparé l'id a a db
-            $sql = 'SELECT * FROM register WHERE id=:id';
+            // prendre les mails de la db sans prendre l'email de l'user sur cette fiche
+            require_once '../connect.php';
+            // compare les emails de la db sauf la row de l'utilisateur
+            $sql =
+                'SELECT * FROM register WHERE email=:email EXCEPT SELECT * FROM register WHERE id=:id';
             $query = $conn->prepare($sql);
-            $query->bindParam(':id', $_GET['id'], PDO::PARAM_STR);
+            $query->bindParam(':email', $email, PDO::PARAM_STR);
+            $query->bindParam(':id', $userDisplayId, PDO::PARAM_STR);
             $query->execute();
-            $user = $query->fetch();
+            $dataMail = $query->fetch();
+            $cnt = 1;
+            if ($query->rowCount() > 0) {
+                $_SESSION['error'][] = 'The email already exists.';
+            }
+
+            if ($userType != 'user' && $userType != 'admin') {
+                $_SESSION['error'][] = 'Error wrong user type';
+            }
+            if ($_SESSION['error'] === []) {
+                // ajouter tout dans la db
+                $con = 'update register set first_name=:newfirst_name,
+                last_name=:newlast_name,
+                email=:email,
+                user_type=:user_type
+                 where id=:id';
+                $chnginfo = $conn->prepare($con);
+                $chnginfo->bindParam(':id', $userDisplayId, PDO::PARAM_STR);
+                $chnginfo->bindParam(
+                    ':newfirst_name',
+                    $newfirst_name,
+                    PDO::PARAM_STR
+                );
+                $chnginfo->bindParam(
+                    ':newlast_name',
+                    $newlast_name,
+                    PDO::PARAM_STR
+                );
+                $chnginfo->bindParam(':email', $email, PDO::PARAM_STR);
+                $chnginfo->bindParam(':user_type', $userType, PDO::PARAM_STR);
+                $chnginfo->execute();
+                // redirection vers admin room
+                header('Location: ../admin.php');
+            }
+            header('refresh:1;url=../admin.php');
         }
+        header('refresh:1;url=../admin.php');
     }
 }
 ?>
@@ -111,82 +157,17 @@ if (!empty($_POST)) {
 </head>
 
 <body class="bg-dark text-white">
-    <header>
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid px-5">
-                <a class="navbar-brand" href="#">
-                    <h1>GetFlix</h1>
-                </a><img src="../img/EyeHorror.png" alt="..." height="80">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded=" false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav px-5">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Home</a>
-                        </li>
-
-                        <li class="nav-item dropdown px-5">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Genres
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Animated movies</a></li>
-                                <li><a class="dropdown-item" href="#">Cannibal</a></li>
-                                <li><a class="dropdown-item" href="#">Comedy</a></li>
-                                <li><a class="dropdown-item" href="#">Gore</a></li>
-                                <li><a class="dropdown-item" href="#">Killer</a></li>
-                                <li><a class="dropdown-item" href="#">Monster movies</a></li>
-                                <li><a class="dropdown-item" href="#">Paranormal</a></li>
-                                <li><a class="dropdown-item" href="#">Psychological</a></li>
-                                <li><a class="dropdown-item" href="#">Slasher</a></li>
-                                <li><a class="dropdown-item" href="#">Zombies</a></li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li><a class="dropdown-item" href="#">More genres</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="./profil.php">My profile</a>
-                        </li>
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="./create_account.php">Create account</a>
-                        </li>
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="./register.php">Connect</a>
-                        </li>
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="./deconnect.php">Deconnect</a>
-                        </li>
-
-
-                    </ul>
-                </div>
-
-
-                <form action="" class="">
-                    <div class="input-group my-4">
-                        <input type="text" class="form-control form-control-lg" placeholder="let's scream...">
-                        <button type="submit" class="input-group-text btn-danger"><i class="bi bi-search me-2"></i>
-                            Search</button>
-                    </div>
-                </form>
-
-            </div>
-        </nav>
-    </header>
     <!-- Titre et logo -->
     <div class="container" id="logo_et_titre">
         <div class="row mb-4 mt-4">
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mx-auto justify-content-center">
+                <!-- nav admin -->
+                <ul>
+                    <li><a href="../admin.php">admin pannel</a></li>
+                </ul>
                 <div class="text-center" id="logo_container">
-                    <img src="../img/netflix_petit.png" alt="logo" id="logo">
+                    <img src=". _petit.png" alt="logo" id="logo">
                 </div>
                 <h5 class="text-center">admin - modify profil</h5>
             </div>
@@ -198,14 +179,14 @@ if (!empty($_POST)) {
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4 mx-auto justify-content-center">
                 <!-- S'identifier // form -->
-                <div id="alert_message">
-                    <?php if (isset($_SESSION['error'])) {
-                        foreach ($_SESSION['error'] as $message) { ?>
-                    <p style='color:red'><?php echo $message; ?></p>
-                    <?php }
-                        unset($_SESSION['error']);
-                    } ?>
-                </div>
+
+                <?php if (isset($_SESSION['error'])) {
+                    foreach ($_SESSION['error'] as $message) { ?>
+                <p style='color:red'><?php echo $message; ?></p>
+                <?php }
+                    unset($_SESSION['error']);
+                } ?>
+
                 <form method="post" action="<?php echo htmlspecialchars(
                     $_SERVER['PHP_SELF']
                 ); ?>" id="form">
@@ -228,6 +209,10 @@ if (!empty($_POST)) {
                         <input type="text" name="user_type" class="form-control form-control-lg" id="user_type"
                             placeholder="user type" maxlength="5" minlength="4" value="<?php echo $userType; ?>"
                             required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="userDisplayId" class="form-control form-control-lg" id="user_type"
+                            placeholder="user type" value="<?php echo $userDisplayId; ?>" required>
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

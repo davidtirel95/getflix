@@ -129,7 +129,7 @@ function setGenre(button, text) {
                 getMovies(select_HORROR);
                 console.log(select_HORROR);
             }
-        } else if(select_HORROR.indexOf(sixties_seventies)) {
+        } else if(select_HORROR.indexOf(sixties_seventies)  > -1) {
             if(button.ariaPressed == "true") {
                 select_HORROR = select_HORROR.replace(sixties_seventies, "");
                 select_HORROR += (text + sixties_seventies);
@@ -154,6 +154,12 @@ function setGenre(button, text) {
     })
 }
 
+
+// On va dans:
+// https://api.themoviedb.org/3/discover/movie?api_key=4080ddd8f97d6721f32f9d82aba61857&with_genres=27
+// dans results
+
+
 // Afficher tous les films d'horreur
 getMovies(HORROR);
 
@@ -177,12 +183,18 @@ function showMovies(data) {
             if (window.matchMedia("(max-width: 500px)").matches) {
                 films_container.insertAdjacentHTML(
                     "beforeend",
-                    `<img class="img-${index} img_movie" src="https://image.tmdb.org/t/p/w92/${cur.poster_path}" />`
+                    `<form action="" method="GET" class="form_movie">
+                    <a type="submit" name="movie" class="lien" href="./movie_page.php?id=${cur.id}">
+                    <img value="${cur.id} id="${cur.id}" class="img-${index} img_movie" src="https://image.tmdb.org/t/p/w92/${cur.poster_path}" /> </a>
+                    </form>`
                 )
               } else {
                 films_container.insertAdjacentHTML(
-                    "beforeend",
-                    `<img class="img-${index} img_movie" src="https://image.tmdb.org/t/p/w185/${cur.poster_path}" />`
+                  "beforeend",
+                    `<form action="" method="GET" class="form_movie">
+                    <a type="submit" name="movie" class="lien" href="./movie_page.php?id=${cur.id}">
+                    <img value="${cur.id} id="${cur.id}" class="img-${index} img_movie" src="https://image.tmdb.org/t/p/w185/${cur.poster_path}" /> </a>
+                    </form>`
                 )
               }
 
@@ -190,9 +202,4 @@ function showMovies(data) {
 
     })
 }
-
-
-
-
-
 
